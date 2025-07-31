@@ -1,0 +1,31 @@
+# __pycache__ 폴더
+__pycache__/
+*.py[cod]
+
+# Jupyter Notebook 체크포인트
+.ipynb_checkpoints/
+
+# OS 별 임시 파일
+.DS_Store
+Thumbs.db
+
+# 가상환경 폴더
+edge-env/
+
+# 로그 파일
+*.log
+*.txt
+*.pt
+
+# VSCode 설정파일
+.vscode/
+
+# Python 빌드 결과물
+*.egg-info/
+*.egg
+*.pyo
+*.pyd
+*.pyd
+*.whl
+build/
+dist/
