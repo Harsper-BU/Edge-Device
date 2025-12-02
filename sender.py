@@ -4,13 +4,13 @@ import cv2
 
 class Sender:
     def __init__(self, config):
-        self.device_id      = config.get_camera_config().get("device_id", "camera01")
-        self.url            = config.get_server_url()
+        self.device_id      = config.device_id
+        self.url            = f"http://{config.ip}:{config.port}/auth/violations"
 
         # 1) 이벤트 지속 카운터 (프레임 단위)
         self.event_count    = 0
         # 2) 재전송 억제 시간 -2초
-        self.suppress_frames = int(config.get_camera_config().get("fps", 30) * 2)
+        self.suppress_frames = int(config.fps * 2)
 
     def process_frame(self, frame, detections):
         """

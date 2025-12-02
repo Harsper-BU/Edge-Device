@@ -1,0 +1,6 @@
+{
+    "classes": [
+        {"helmet":{"color": [0, 255, 0]}},
+        {"no_helmet":{"color": [0, 0, 255]}}
+    ]
+}

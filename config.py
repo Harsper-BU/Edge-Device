@@ -1,29 +1,29 @@
-import json
+import configparser as cp
 
 class Config:
-    def __init__(self, config_path="config.json"):
-        with open(config_path, 'r') as f:
-            self.config = json.load(f)
+    def __init__(self):
+        config = cp.ConfigParser()
+        config.read("config/config.ini")
+        """기본 세팅"""
+        self.device_id=config["settings"]["device_id"]
 
-    def get_ffmpeg_config(self):
-        return self.config.get("ffmpeg", {})
+        """Camera 세팅"""
+        self.width=config["CAMERA"]["width"]
+        self.height=config["CAMERA"]["height"]
+        self.fps=config["CAMERA"]["fps"]
 
-    def get_camera_config(self):
-        return self.config.get("camera", {})
+        """YOLO 세팅"""
+        self.output_path=config["FFMPEG"]["output_path"]
+        self.model_path=config["YOLO"]["model_path"]
+        self.classes_path=config["YOLO"]["class_file_path"]
 
-    def get_yolo_model_path(self):
-        return self.config.get("yolo", {}).get("model_path", "")
+        """Server 세팅"""
+        self.ip=config["SERVER"]["ip"]
+        self.port=config["SERVER"]["port"]
+        self.is_send = config.getboolean("SERVER", "send")
 
-    def get_device_id(self):
-        return self.config.get("camera", {}).get("device_id", "unknown_device")
+        """Log Setting"""
+        self.log_enable=config.getboolean("LOGGING", "enable")
+        self.log_second=config.getint("LOGGING","second")
+        self.is_test=config.getboolean("LOGGING", "test_video")
 
-    def get_server_ip(self):
-        return self.config.get("server", {}).get("ip", "127.0.0.1")
-
-    def get_server_port(self):
-        return self.config.get("server", {}).get("port", 5000)
-
-    def get_server_url(self):
-        ip = self.get_server_ip()
-        port = self.get_server_port()
-        return f"http://{ip}:{port}/auth/violations"
